@@ -3,11 +3,14 @@
 
 # Go build and test files
 /bin/
-/pkg/
 /test/
 
 # Log files
 *.log
+
+*.yaml
+.env
+*.db
 
 # OS-specific files
 .DS_Store
