@@ -1,0 +1,15 @@
+# Goland IDE files
+.idea/
+
+# Go build and test files
+/bin/
+/pkg/
+/test/
+
+# Log files
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+ehthumbs.db
