@@ -6,7 +6,7 @@ import (
 	"github.com/TakuroBreath/personal-finance-manager/pkg/logger"
 	"github.com/TakuroBreath/personal-finance-manager/pkg/sl"
 	"github.com/joho/godotenv"
-	"log"
+	l "log"
 	"log/slog"
 	"os"
 )
@@ -14,7 +14,7 @@ import (
 func main() {
 	err := godotenv.Load()
 	if err != nil {
-		log.Fatal("Error loading .env file")
+		l.Fatal("Error loading .env file")
 	}
 
 	ConfigPath := os.Getenv("CONFIG_PATH")
