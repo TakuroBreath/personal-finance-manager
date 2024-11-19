@@ -25,7 +25,7 @@ func main() {
 
 	log.Info("Starting app", slog.String("env", cfg.Env))
 
-	_, err = storage.NewStorage(cfg)
+	db, err = storage.NewStorage(cfg)
 	if err != nil {
 		log.Error("failed to connect to database", sl.Err(err))
 		os.Exit(1)
