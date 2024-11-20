@@ -20,7 +20,7 @@ func (User) TableName() string {
 
 // BeforeCreate хеширует пароль перед созданием записи
 func (u *User) BeforeCreate(*gorm.DB) error {
-	return u.hashPassword()
+	return u.HashPassword()
 }
 
 // BeforeUpdate хеширует пароль перед обновлением записи,
@@ -28,13 +28,13 @@ func (u *User) BeforeCreate(*gorm.DB) error {
 func (u *User) BeforeUpdate(tx *gorm.DB) error {
 	// Проверяем, изменилось ли поле password
 	if tx.Statement.Changed("Password") {
-		return u.hashPassword()
+		return u.HashPassword()
 	}
 	return nil
 }
 
 // hashPassword хеширует пароль пользователя
-func (u *User) hashPassword() error {
+func (u *User) HashPassword() error {
 	if u.Password == "" {
 		return nil
 	}

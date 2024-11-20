@@ -21,8 +21,8 @@ type UserCreateRequest struct {
 }
 
 type UserUpdateRequest struct {
-	Nickname    *string `json:"nickname,omitempty"`
-	NewPassword *string `json:"new_password,omitempty"`
+	Nickname    *string `json:"username,omitempty"`
+	NewPassword *string `json:"password,omitempty"`
 }
 
 type LoginRequest struct {
@@ -42,11 +42,11 @@ type AuthResponse struct {
 }
 
 type UserService struct {
-	repo       repository.UserRepository
+	repo       *repository.Repository
 	jwtService *JWTService
 }
 
-func NewUserService(repo repository.UserRepository, jwtService *JWTService) *UserService {
+func NewUserService(repo *repository.Repository, jwtService *JWTService) *UserService {
 	return &UserService{
 		repo:       repo,
 		jwtService: jwtService,

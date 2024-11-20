@@ -22,7 +22,7 @@ func (t *TransactionHandler) CreateTransaction(c *gin.Context) {
 		return
 	}
 
-	transaction.UserID = uint(userID.(float64))
+	transaction.UserID = userID.(uint)
 	id, err := t.transactionService.CreateTransaction(transaction)
 	if err != nil {
 		c.JSON(400, gin.H{"error": err.Error()})
@@ -62,7 +62,7 @@ func (t *TransactionHandler) DeleteTransaction(c *gin.Context) {
 func (t *TransactionHandler) GetTransactionsByUserID(c *gin.Context) {
 	userID, _ := c.Get("userID")
 
-	id := uint(userID.(float64))
+	id := userID.(uint)
 
 	transactions, err := t.transactionService.GetTransactionsByUserID(id)
 	if err != nil {

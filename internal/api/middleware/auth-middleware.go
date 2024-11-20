@@ -4,13 +4,11 @@ import (
 	"github.com/TakuroBreath/personal-finance-manager/internal/service"
 	"github.com/gin-gonic/gin"
 	"net/http"
-
 	"strings"
 )
 
 func AuthMiddleware(jwtService *service.JWTService) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		// Получаем токен из заголовка
 		tokenString := c.GetHeader("Authorization")
 		if tokenString == "" {
 			c.JSON(http.StatusUnauthorized, gin.H{"error": "Authorization token required"})
@@ -18,10 +16,8 @@ func AuthMiddleware(jwtService *service.JWTService) gin.HandlerFunc {
 			return
 		}
 
-		// Удаляем префикс "Bearer "
 		tokenString = strings.TrimPrefix(tokenString, "Bearer ")
 
-		// Валидируем и парсим токен
 		claims, err := jwtService.ValidateToken(tokenString)
 		if err != nil {
 			c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
@@ -29,16 +25,15 @@ func AuthMiddleware(jwtService *service.JWTService) gin.HandlerFunc {
 			return
 		}
 
-		// Извлекаем ID пользователя из claims
-		userID, ok := claims["userID"].(float64)
+		// Извлекаем ID пользователя из claims с правильным ключом
+		userID, ok := claims["user_id"].(float64)
 		if !ok {
 			c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid user ID"})
 			c.Abort()
 			return
 		}
 
-		// Сохраняем ID пользователя в контексте
-		c.Set("userID", int(userID))
+		c.Set("userID", uint(userID))
 		c.Next()
 	}
 }

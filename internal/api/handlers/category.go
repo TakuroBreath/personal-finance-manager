@@ -23,7 +23,7 @@ func (h *CategoryHandler) CreateCategory(c *gin.Context) {
 		return
 	}
 
-	request.UserID = uint(id.(float64))
+	request.UserID = id.(uint)
 	categoryID, err := h.categoryService.CreateCategory(request)
 	if err != nil {
 		c.JSON(400, gin.H{"error": err.Error()})
@@ -35,7 +35,7 @@ func (h *CategoryHandler) CreateCategory(c *gin.Context) {
 func (h *CategoryHandler) UpdateCategory(c *gin.Context) {
 	var request service.CategoryUpdateRequest
 	id, _ := c.Get("userID")
-	request.UserID = uint(id.(float64))
+	request.UserID = id.(uint)
 
 	categoryID := c.Param("cat_id")
 	catID, _ := strconv.Atoi(categoryID)
@@ -70,7 +70,7 @@ func (h *CategoryHandler) DeleteCategory(c *gin.Context) {
 
 func (h *CategoryHandler) GetCategoriesByUserID(c *gin.Context) {
 	id, _ := c.Get("userID")
-	categories, err := h.categoryService.GetCategoriesByUserID(uint(id.(float64)))
+	categories, err := h.categoryService.GetCategoriesByUserID(id.(uint))
 	if err != nil {
 		c.JSON(400, gin.H{"error": err.Error()})
 		return

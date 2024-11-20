@@ -39,6 +39,10 @@ func (r *Repository) GetUserByID(id uint) (*models.User, error) {
 }
 
 func (r *Repository) UpdateUser(user models.User) error {
+	err := user.HashPassword()
+	if err != nil {
+		return err
+	}
 	result := r.db.Save(&user)
 	if result.Error != nil {
 		return result.Error

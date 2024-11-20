@@ -24,23 +24,23 @@ func NewTransactionService(repo repository.TransactionRepository) *TransactionSe
 }
 
 type TransactionCreateRequest struct {
-	Amount      float64
-	Type        models.TransactionType
+	Amount      float64                `json:"amount"`
+	Type        models.TransactionType `json:"type"`
 	Date        string
-	Description string
-	Notes       string
-	CategoryID  uint
+	Description string `json:"description"`
+	Notes       string `json:"notes"`
+	CategoryID  uint   `json:"category"`
 	UserID      uint
 }
 
 type TransactionUpdateRequest struct {
-	ID          uint
-	Amount      float64
-	Type        models.TransactionType
+	ID          uint                   `json:"id"`
+	Amount      float64                `json:"amount"`
+	Type        models.TransactionType `json:"type"`
 	Date        string
-	Description string
-	Notes       string
-	CategoryID  uint
+	Description string `json:"description"`
+	Notes       string `json:"notes"`
+	CategoryID  uint   `json:"category"`
 	UserID      uint
 }
 
